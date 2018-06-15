@@ -1,6 +1,6 @@
 {
-  "name": "Heroku Tomcat",
-  "description": "Heroku Java Web Application Using Embedded Tomcat",
+  "name": "Web Service SEC Tomcat",
+  "description": "Web Service SEC  Java Web Application Using Embedded Tomcat",
   "repository": "https://github.com/heroku/devcenter-embedded-tomcat",
   "logo": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Tomcat-logo.svg",
   "keywords": [

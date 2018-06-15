@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello Heroku!</h2>
+<h2>Web Service One!</h2>
 </body>
 </html>
