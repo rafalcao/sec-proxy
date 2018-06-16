@@ -44,7 +44,7 @@ public class Main {
         try {
 
             logger("Generate connector for "+ wsName +"...");
-            configService(webService, getConnector(wsName, wsPort));
+            configService(webService, getConnector(wsName, wsPort), wsName);
             logger("Start "+ wsName +"...");
             webService.start();
             logger(wsName +" ON in "+ wsPort + " !!!");
@@ -59,7 +59,7 @@ public class Main {
 
     }
 
-    private static void configService(Tomcat tomcat, Connector connector){
+    private static void configService(Tomcat tomcat, Connector connector, String wsName){
         try {
 
             File root = getRootFolder();
@@ -69,7 +69,7 @@ public class Main {
             Path tempPath = Files.createTempDirectory("tomcat-base-dir");
             tomcat.setBaseDir(tempPath.toString());
 
-            File webContentFolder = new File(root.getAbsolutePath(), "src/main/webapp/");
+            File webContentFolder = new File(root.getAbsolutePath(), "src/main/"+ wsName +"/");
             if (!webContentFolder.exists()) {
                 webContentFolder = Files.createTempDirectory("default-doc-base").toFile();
             }
