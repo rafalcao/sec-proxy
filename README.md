@@ -16,7 +16,9 @@ Links para teste:
 ##### - Pré requisitos - 
 
 1 - Necessário que o [docker](https://docs.docker.com/install/) esteja instalado.
+
 2 - Necessário que o [maven](https://maven.apache.org/install.html) esteja instalado.
+
 3 - Necessário que o [java (jdk 1.8)](http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html) esteja instalado.
 
 ##### Instalação Nginx
