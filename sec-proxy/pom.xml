@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>1.0.0</modelVersion>
+  <groupId>secproxy</groupId>
+  <artifactId>sec-proxy</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+
+  <name>sec-proxy</name>
+  <url>https://github.com/rafalcao/sec-proxy</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <jetty.version>9.4.10.v20180503</jetty.version>
+    <slf4j.version>1.7.25</slf4j.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jdk14</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-server</artifactId>
+      <version>${jetty.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.jetty</groupId>
+      <artifactId>jetty-client</artifactId>
+      <version>${jetty.version}</version>
+    </dependency>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/resources</directory>
+      </resource>
+    </resources>
+	  <plugins>
+	    <plugin>
+	      <groupId>org.apache.maven.plugins</groupId>
+	      <artifactId>maven-assembly-plugin</artifactId>
+	      <executions>
+	        <execution>
+	          <phase>package</phase>
+	            <goals>
+	              <goal>single</goal>
+	            </goals>
+	          <configuration>
+	            <archive>
+	              <manifest>
+	                <mainClass>
+	                  secproxy.Main
+	                </mainClass>
+	              </manifest>
+	            </archive>
+	            <descriptorRefs>
+	              <descriptorRef>jar-with-dependencies</descriptorRef>
+	            </descriptorRefs>
+	          </configuration>
+	        </execution>
+	      </executions>
+	    </plugin>
+	  </plugins>
+ </build>
+</project>
