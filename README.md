@@ -3,14 +3,13 @@
 Proxy HTTPS reverso.
 
 Links para teste:
-  - https://ws-one.rfalcao.com/ - (backend: https://ws-one.rfalcao.com:8081)
-  - https://ws-two.rfalcao.com/ - (backend: https://ws-two.rfalcao.com:8082)
+  - https://ws-one.rfalcao.com:8444/ - (backend: https://ws-one.rfalcao.com:8081)
+  - https://ws-two.rfalcao.com:8445/ - (backend: https://ws-two.rfalcao.com:8082)
 
 ### Tecnologia
 
-* [Docker] - Utilizado para instalar o `Nginx`.
-* [Nginx] - `Proxy reverso` para os servidores de backend.
-* [Embedded Tomcat] - Utilizado para a criação da web aplicação em `JAVA`. 
+* [Docker] - Utilizado para utilização do `Nginx`.
+* [Embedded Jetty] - `Proxy reverso` para os servidores de backend.
 
 ### Instalação
 ##### - Pré requisitos - 
@@ -23,28 +22,17 @@ Links para teste:
 
 ##### Instalação Nginx
 ``` 
-$ docker run --name nginx -d -p 80:80 -p 443:443 -v /PATH_CLONE/sec-proxy/nginx:/etc/nginx nginx:latest
+$ docker run --name nginx -d -p 8081:8081 -p 8082:8082 -v /var/www/html/sec-proxy/nginx:/etc/nginx -v /var/www/html/sec-proxy/html:/var/www/html/ nginx:latest
 ```
-Em seguida deve-se configurar os arquivos de acordo com seus hosts locais
-- [ws-one.rfalcao.com.conf]
-- [ws-two.rfalcao.com.conf]
 
 ##### Rodando a aplicação
 ```
-$ cd /PATH_CLONE/
+$ cd /PATH_CLONE/sec-proxy
 
-$ mvn package
+$ mvn clean package
 [INFO] BUILD SUCCESS
 
-$ sh target/bin/webapp
-#### SEC PROXY | Init ws-one service...
-#### SEC PROXY | Generate connector for ws-one...
-#### SEC PROXY | Start ws-one...
-#### SEC PROXY | ws-one ON in 8081 !!!
-#### SEC PROXY | Init ws-two service...
-#### SEC PROXY | Generate connector for ws-two...
-#### SEC PROXY | Start ws-two...
-#### SEC PROXY | ws-two ON in 8082 !!!
+$ java -jar target/sec-proxy-1.0-jar-with-dependencies.jar
 ```
 
 ### Adicionais
