@@ -25,6 +25,28 @@ Links para teste:
 $ docker run --name nginx -d -p 8081:8081 -p 8082:8082 -v /var/www/html/sec-proxy/nginx:/etc/nginx -v /var/www/html/sec-proxy/html:/var/www/html/ nginx:latest
 ```
 
+##### Configuração
+
+Alterar arquivo de configuração config.properties
+
+```
+backend-one-name=ws-one
+backend-two-name=ws-two
+backend-one-port=8081
+backend-two-port=8081
+backend-schema=http
+
+sec-one-name=ws-one
+sec-one-port=8444
+sec-two-name=ws-two
+sec-two-port=8445
+sec-pass=031192
+sec-schema=https
+
+domain=rfalcao.com
+```
+
+
 ##### Rodando a aplicação
 ```
 $ cd /PATH_CLONE/sec-proxy
@@ -34,6 +56,10 @@ $ mvn clean package
 
 $ java -jar target/sec-proxy-1.0-jar-with-dependencies.jar
 ```
+
+
+
+
 
 ### Adicionais
 * [Let's encrypt] - Utilizado para a criação dos certificados, foram aplicados nas chaves.
