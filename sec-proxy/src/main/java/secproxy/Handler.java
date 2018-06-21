@@ -33,6 +33,7 @@ public class Handler extends AbstractHandler
 		String requestedServerName = request.getServerName();
 		for (WebSec webSec : servers) 
 		{
+
 			String fullyQualifiedDomainName = webSec.getPath();
 			if(requestedServerName.equals(fullyQualifiedDomainName))
 			{
@@ -57,6 +58,7 @@ public class Handler extends AbstractHandler
 
 	private void verifyRedirect(HttpServletRequest request, HttpServletResponse response)
 	{
+
 		try{
 			if(request.getRequestURL().toString().contains(config.getSecOneName()) && 
 					request.getRequestURL().toString().contains(Integer.toString(config.getSecTwoPort()))){
