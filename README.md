@@ -3,8 +3,8 @@
 Proxy HTTPS reverso.
 
 Links para teste:
-  - https://ws-one.rfalcao.com:8444/ - (backend: https://ws-one.rfalcao.com:8081)
-  - https://ws-two.rfalcao.com:8445/ - (backend: https://ws-two.rfalcao.com:8082)
+  - https://ws-one.rfalcao.com:8444/ - (backend: http://ws-one.rfalcao.com:8081)
+  - https://ws-two.rfalcao.com:8445/ - (backend: http://ws-two.rfalcao.com:8082)
 
 ### Tecnologia
 
