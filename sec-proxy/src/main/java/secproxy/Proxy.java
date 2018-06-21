@@ -21,45 +21,40 @@ public class Proxy
 {
 	private Server server;
 	private List<WebSec> servers;
-
-	private String passSec 		= "031192";
-	private String oneSec 		= "ws-one";
-	private String onePort 		= 8444;
-
-	private String twoSec 		= "ws-two";
-	private String twoPort 		= 8445;
+	private Config config;
 	
 	public Proxy(List<WebSec> servers) 
 	{
         this.server = new Server();
         this.servers = servers;
+        config = new Config();
         init();
 	}
 
 	private void init() 
 	{
-		SslContextFactory sslWsOne = getSSLContextFactory(oneSec, passSec);
-		HttpConfiguration httpsConfiguration = getHTTPSConfiguration();
-        ServerConnector oneHttp = getHTTPSConnectorTwo(sslWsOne, onePort , httpConfiguration);
+		SslContextFactory sslWsOne = getSSLContextFactory(config.getSecOneName());
+		HttpConfiguration httpsConfigurationOne = getHTTPSConfiguration();
+        ServerConnector oneHttp = getHTTPSConnector(sslWsOne, config.getSecOnePort() , httpsConfigurationOne);
         
-        SslContextFactory sslWsTwo = getSSLContextFactory(twoSec, passSec);
-        HttpConfiguration httpsConfiguration = getHTTPSConfiguration();
-        ServerConnector twoHttp = getHTTPSConnector(sslWsTwo, twoPort, httpsConfiguration);
+        SslContextFactory sslWsTwo = getSSLContextFactory(config.getSecTwoName());
+        HttpConfiguration httpsConfigurationTwo = getHTTPSConfiguration();
+        ServerConnector twoHttp = getHTTPSConnector(sslWsTwo, config.getSecTwoPort(), httpsConfigurationTwo);
 
         server.setConnectors(new Connector[] { oneHttp, twoHttp });
         server.setHandler(new Handler(servers));
 	}
 
-	public void start() throws Exception
+	public void up() throws Exception
 	{
 		server.start();
 	}
 
-	private SslContextFactory getSSLContextFactory(String sec, String pass) 
+	private SslContextFactory getSSLContextFactory(String sec) 
 	{
 		SslContextFactory sslContextFactory = new SslContextFactory();
         sslContextFactory.setKeyStoreResource(newClassPathResource(sec + ".jks"));
-        String password = System.getProperty("keystore.password", pass);
+        String password = System.getProperty("keystore.password", config.getSecPass());
 		sslContextFactory.setKeyStorePassword(password);
         sslContextFactory.setKeyManagerPassword(password);
         
@@ -76,7 +71,7 @@ public class Proxy
 		return https_config;
 	}
 
-	private ServerConnector getHTTPSConnector(SslContextFactory sslContextFactory, String port, HttpConfiguration httpsConfiguration) 
+	private ServerConnector getHTTPSConnector(SslContextFactory sslContextFactory, int port, HttpConfiguration httpsConfiguration) 
 	{
 		ServerConnector https = new ServerConnector(
 			server, 

@@ -16,14 +16,15 @@ public class WebSec
 	private HttpClient httpClient;
 	private String name;
 	private Integer port;
-	private String backendSchema = 'http://';
-	private String domain = ".rfalcao.com";
+	private String serverName;
+	private Config config;
 	
 	public WebSec(String serverName, Integer port) throws Exception 
 	{
 		this.serverName = serverName;
 		this.port = port;
-		this.httpClient = new HttpClient();		
+		this.httpClient = new HttpClient();	
+		config = new Config();	
 	}
 	
 	public void up() throws Exception 
@@ -33,7 +34,7 @@ public class WebSec
 
 	public String getPath()
 	{
-		return serverName + domain;
+		return serverName + "." + config.getDomain();
 	}
 
 	public Integer getPort() 
@@ -43,7 +44,7 @@ public class WebSec
 
 	protected String getContentURL(String target)
 	{
-		return schema + getPath() + ":" + port + target;
+		return config.getBackendSchema() + getPath() + ":" + port + target;
 	}
 	
 	public ContentResponse getContentResponse(String target, HttpServletRequest request) throws Exception

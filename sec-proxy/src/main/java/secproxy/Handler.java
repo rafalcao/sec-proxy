@@ -19,16 +19,11 @@ public class Handler extends AbstractHandler
 {
 	protected Logger log = LoggerFactory.getLogger(Handler.class);
 	private List<WebSec> servers;
-	private String secOneBaseUrl = "https://ws-one.rfalcao.com:8444/";
-	private String secTwoBaseUrl = "https://ws-two.rfalcao.com:8445/";
-	private String secOneName = "ws-one";
-	private String secOnePort = "8444";
-	private String secTwoName = "ws-two";
-	private String secTwoPort = "8555";
-
+	private Config config;
 	
 	public Handler(List<WebSec> servers) 
 	{
+		config = new Config();
 		this.servers = servers;
 	}
 	
@@ -54,21 +49,30 @@ public class Handler extends AbstractHandler
 				} 
 				catch (Exception exception) 
 				{
-					log.error("#### Error: " + exception.getMessage());
+					//log.error("#### Error: " + exception.getMessage());
 				} 
 			}
 		}
 	}
 
-	private void verifyRedirect(request, response){
-		if(request.getRequestURL().toString().contains(secOneName) && && request.getRequestURL().toString().contains(secTwoPort)){
-			response.sendRedirect(secOneBaseUrl);
-			return;
-		}
+	private void verifyRedirect(HttpServletRequest request, HttpServletResponse response)
+	{
+		try{
+			if(request.getRequestURL().toString().contains(config.getSecOneName()) && 
+					request.getRequestURL().toString().contains(Integer.toString(config.getSecTwoPort()))){
+				log.error("#### Redirect to: " + config.getSecOneUrl());
+				response.sendRedirect(config.getSecOneUrl());
+			}
 
-		if(request.getRequestURL().toString().contains(secTwoName) && request.getRequestURL().toString().contains(secOnePort)){
-			response.sendRedirect(secTwoBaseUrl);
-			return;
-		}	
+			if(request.getRequestURL().toString().contains(config.getSecTwoName()) && 
+					request.getRequestURL().toString().contains(Integer.toString(config.getSecOnePort()))){
+				log.error("#### Redirect to: " + config.getSecTwoUrl());
+				response.sendRedirect(config.getSecTwoUrl());
+			}
+		} 
+		catch (Exception exception) 
+		{
+			log.error("#### Error: " + exception.getMessage());
+		} 
 	}
 }
